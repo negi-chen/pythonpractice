@@ -67,3 +67,33 @@ for i, a in x:
 1 kirishima
 2 python
 
+
+----------------------practice3---------------------------
+
+3.
+ 期待する出力値
+
+['0', '30', '7', '813', '43']
+
+# method one
+
+# a = [0, 30, 7, 813, 43]
+
+# # 以下のコードを修正してください
+# b =  [str(x) for x in a ]
+# # print(x)
+# # b = []
+# print(b)
+
+
+
+# method two
+
+a = [0, 30, 7, 813, 43]
+b =[]
+# 以下のコードを修正してください
+
+for x in a :
+    b.append(str(x))
+    
+print(b)
