@@ -1,6 +1,6 @@
 
 
-
+----------------------practice1---------------------------
 
 li = ["kirishima", "rokumura", "midorikawa"]
 
@@ -28,3 +28,41 @@ for i in range(len(li)):
     li[i] = li[i] + s
     
 print (li)
+
+
+
+----------------------practice2---------------------------
+
+
+
+li = ["paiza", "kirishima", "python"]
+
+# ここから下の行を足してください
+
+# for first one
+# x = enumerate(li)
+# print(x)  ->  <enumerate object at 0x4f0b03e5cae0>
+
+
+# # for second 
+# x = enumerate(li)
+# for i in x:
+#     print(i)
+    
+#     |
+#     V
+# (0, 'paiza')
+# (1, 'kirishima')
+# (2, 'python')
+    
+
+
+# for third
+x = enumerate(li)
+for i, a in x:
+    print(i, a)
+#     |
+#     V
+0 paiza
+1 kirishima
+2 python
