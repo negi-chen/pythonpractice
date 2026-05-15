@@ -67,5 +67,3 @@ for i, a in x:
 1 kirishima
 2 python
 
-
-new
