@@ -66,3 +66,6 @@ for i, a in x:
 0 paiza
 1 kirishima
 2 python
+
+
+new
