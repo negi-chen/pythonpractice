@@ -839,3 +839,117 @@ N 人の人々がおり、それぞれの人は金と銀を何キログラムか
 それぞれの人が持っている金と銀のキログラム数が与えられるので、この規則にしたがって、財産を多い順に並び替えて出力してください。
 
 
+
+#python
+# ==========================================================
+# 【Python3】標準入力の書き方に困ったらこちら！
+# 
+# 「入力される値」の取得方法一覧（Python）
+# https://paiza.jp/pages/works/cheatsheet/stdin_python
+# ==========================================================
+# ここからコードを書き始めてください
+
+depend = int(input())
+# print(depend)
+
+code = []
+
+for i in range(depend):
+    lists = list(map(int, input().split()))
+    code.append(lists)
+    # print(code)
+
+
+code.sort(key=lambda x: (x[1], x[0]), reverse=True)
+
+for j in code:
+    print(*j)
+    
+
+#ans from paiza
+N = int(input())
+kingin = [0] * N
+
+for i in range(N):
+    [a, b] = [int(j) for j in input().split()]
+    kingin[i] = [b, a]
+
+kingin.sort(reverse=True)
+
+for i in range(N):
+    [a, b] = kingin[i]
+    print(b, a)
+
+
+#java
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        // System.out.println(n);
+        
+        String[] ab = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            String a = sc.next();
+            String b = sc.next();
+            
+            // System.out.println("here is a:"+a);
+            // System.out.println("here is b:"+b);
+            if (a.length() == 1) {
+                a = "0" + a;
+            }
+            
+            if (b.length() == 1) {
+                b = "0" + b;
+            }
+
+            ab[i] = b + a;
+            // System.out.println("here is ab: "+ab[i]);
+        }
+        //this means the biggest one will be on the top 
+        Arrays.sort(ab, Collections.reverseOrder()); 
+        
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(Integer.parseInt(ab[i].substring(2,4)) + " " + Integer.parseInt(ab[i].substring(0,2)));
+        }
+    }
+}
+
+#ans from paiza
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        
+        String[] sg = new String[n];
+
+        for (int i = 0; i < n; i++) {
+            String g = sc.next();
+            String s = sc.next();
+
+            if (g.length() == 1) {
+                g = "0" + g;
+            }
+
+            if (s.length() == 1) {
+                s = "0" + s;
+            }
+            
+            sg[i] = s + g;
+        }
+
+        Arrays.sort(sg, Collections.reverseOrder());
+
+        for (int i = 0; i < n; i++) {
+            System.out.println(Integer.parseInt(sg[i].substring(2,4)) + " " + Integer.parseInt(sg[i].substring(0,2)));
+        }
+    }
+}
