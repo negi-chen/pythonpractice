@@ -936,7 +936,9 @@ public class Main {
             String s = sc.next();
 
             if (g.length() == 1) {
-                g = "0" + g;
+                g = "0" + g; 
+                //HERE IS BECAUSE THE RANGE IS FROM 0 - 50
+                //SO INCASE THAT WE WILL HAVE TO ADD 0 
             }
 
             if (s.length() == 1) {
@@ -953,3 +955,5 @@ public class Main {
         }
     }
 }
+
+
