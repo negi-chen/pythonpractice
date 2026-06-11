@@ -574,4 +574,175 @@ public class Main {
 
 
 
+final one 五目並べ Python3編
 
+
+board = []
+for x in range(5):
+    key = input()
+    board.append(key)
+
+# ➡ 2. check（Rows）
+def checkrows():
+    for row in range(5):
+        countone = 0
+        counttwo = 0
+        for column in range(5):
+            char = board[row][column]
+            if char == "O":
+                countone += 1
+            elif char == "X":
+                counttwo += 1
+    
+        if countone == 5:
+            return "O"
+        elif counttwo == 5:
+            return "X"
+    return None
+
+# ⬇3. check（Columns）
+def checkcolumns():
+    for column in range(5):
+        countone = 0
+        counttwo = 0
+        for row in range(5):
+            char = board[row][column]
+            if char == "O":
+                countone += 1
+            elif char == "X":
+                counttwo += 1
+        
+        if countone == 5:
+            return "O"
+        elif counttwo == 5:
+            return "X"
+    return None
+
+# 4. check（Diagonals）
+def checkdiagonals():
+    diag1_O = 0
+    diag1_X = 0
+    diag2_O = 0
+    diag2_X = 0
+    
+    for i in range(5):
+        if board[i][i] == "O":
+            diag1_O += 1
+        elif board[i][i] == "X":
+            diag1_X += 1
+            
+        if board[i][4 - i] == "O":
+            diag2_O += 1
+        elif board[i][4 - i] == "X":
+            diag2_X += 1
+            
+    if diag1_O == 5 or diag2_O == 5:
+        return "O"
+    elif diag1_X == 5 or diag2_X == 5:
+        return "X"
+    return None
+
+# 5. final checking
+ans = checkrows() or checkcolumns() or checkdiagonals()
+
+if ans:
+    print(ans) # print "O" or "X"
+else:
+    print("D") # if both None
+
+
+
+#java
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String change[] = new String[5];
+        
+        // read the input
+        int five = 0;
+        while (five < 5) {
+            change[five] = sc.nextLine();
+            five += 1;
+        }
+        
+        // 2. call all methods and let the input data inside each methods
+        String rowResult = checkRows(change);
+        if (!rowResult.equals("D")) {
+            System.out.println(rowResult);
+            return;
+        }
+        
+        String colResult = checkColumns(change);
+        if (!colResult.equals("D")) {
+            System.out.println(colResult);
+            return;
+        }
+        
+        String diagResult = checkDiagonals(change);
+        if (!diagResult.equals("D")) {
+            System.out.println(diagResult);
+            return;
+        }
+    
+        System.out.println("D");
+    }
+
+    // ➡
+    public static String checkRows(String[] change) {
+        for (int i = 0; i < 5; i++) {
+            int countone = 0;
+            int counttwo = 0;
+            for (int j = 0; j < 5; j++) {
+                char target = change[i].charAt(j);
+                if (target == 'O') countone++;
+                else if (target == 'X') counttwo++;
+            }
+            if (countone == 5) return "O";
+            if (counttwo == 5) return "X";
+        }
+        return "D";
+    }
+
+    // ⬇ 
+    public static String checkColumns(String[] change) {
+        for (int i = 0; i < 5; i++) {
+            int countone = 0;
+            int counttwo = 0;
+            for (int y = 0; y < 5; y++) {
+                char target = change[y].charAt(i); 
+                if (target == 'O') countone++;
+                else if (target == 'X') counttwo++;
+            }
+            if (countone == 5) return "O";
+            if (counttwo == 5) return "X";
+        }
+        return "D";
+    }
+
+    // check / 
+    public static String checkDiagonals(String[] change) {
+        int one = 0;
+        int two = 0;
+        int countone = 0;
+        int counttwo = 0;
+        
+        for (int i = 0; i < 5; i++) {
+            char each = change[i].charAt(i); 
+            if (each == 'O') one += 1;
+            else if (each == 'X') two += 1;
+        }
+        
+        for (int i = 0; i < 5; i++) {
+            int countdown = 4;
+            char each2 = change[i].charAt(countdown - i); 
+            if (each2 == 'O') countone += 1;
+            else if (each2 == 'X') counttwo += 1;
+        }
+        
+        if (one == 5 || countone == 5) return "O";
+        else if (two == 5 || counttwo == 5) return "X";
+        else return "D";
+    }
+}
