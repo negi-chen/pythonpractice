@@ -320,3 +320,63 @@ for _ in range(n):
 
 
 print(x, y)
+
+
+
+# java
+
+import java.util.*;
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String line[] = sc.nextLine().split(" ");
+        // System.out.println(Arrays.toString(line));
+        
+        int x = Integer.parseInt(line[0]);
+        int y = Integer.parseInt(line[1]);
+        int steps = Integer.parseInt(line[2]);
+        
+        int k = (int)Math.sqrt(steps);
+        
+        if (k * (k + 1) > steps) {
+        k--;
+        }
+        
+        int baseMove;
+        if (k % 2 == 0) {
+            baseMove = -(k / 2);
+        } else {
+            baseMove = (k + 1) / 2;
+        }
+        x += baseMove;
+        y += baseMove;
+        
+        int [] dx ={1, 0, -1, 0};
+        int [] dy ={0, 1, 0, -1};
+        
+        int remainingSteps = steps - (k * (k + 1));
+        // System.out.println(remainingSteps);
+        
+        int currentLen = k + 1;
+        
+        if (k % 2 == 0) {
+            int moveRight = Math.min(remainingSteps, currentLen);
+            x += moveRight;
+            remainingSteps -= moveRight;
+            
+            int moveDown = Math.min(remainingSteps, currentLen);
+            y += moveDown;
+        } else {
+            int moveLeft = Math.min(remainingSteps, currentLen);
+            x -= moveLeft;
+            remainingSteps -= moveLeft;
+            
+            int moveUp = Math.min(remainingSteps, currentLen);
+            y -= moveUp;
+        }
+        
+        System.out.println(x + " " + y); 
+    }
+}
