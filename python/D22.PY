@@ -684,3 +684,342 @@ for _ in range(int(n)):
 
 for y in range(int(h)):
     print("".join(s[y]))
+
+
+へびがマップ上を移動していきます。
+マップの行数 H と列数 W , 障害物を '#' で移動可能な場所を '.' で表した H 行 W 列のマップ S_1 ... S_H , 現在の座標 sy , sx , 方向転換の回数 N が与えられます。
+続けて N 回の方向転換する時刻 t_1 ... t_N , 転換する向き d_1 ... d_N が与えられます。
+
+へびははじめ、北を向いています。
+
+時刻 0 から 99 までの間、へびは各時刻に次の行動を最大 100 回とります。
+
+・ 方向転換をおこなう時刻の場合、指定の向きに方向転換したのち 1 マス身体を伸ばす。
+・ そうでない時は移動が可能な場合に限り、今向いている方向に 1 マス身体を伸ばす。
+
+各移動が可能であるということは、
+「移動先のマスに障害物がない かつ 移動先がマップの範囲外でない」
+ということを意味します。
+
+各移動が可能である場合、各移動が終了した時の y , x 座標を出力してください。
+移動が可能でない場合、"Stop" を出力して以降の移動を打ち切ってください。
+
+なお、マスの座標系は左上端のマスの座標を ( y , x ) = ( 0 , 0 ) とし、
+下方向が y 座標の正の向き、右方向が x 座標の正の向きとします。
+
+移動の一例をあげます。例えば次のような入力が与えられた時は図のような移動になります。
+
+
+h, w, sy, sx, n = map(int, input().split())
+grid = [input().strip() for _ in range(h)]
+# print(grid)
+
+#this is maps
+turns = {}
+for _ in range(int(n)):
+    t_i, d_i = input().split()
+    turns[int(t_i)] = d_i
+    
+# print(turns)
+directions = ["N","E","S","W"]
+now = 0
+
+y, x = sy, sx
+
+for i in range(100):
+    if i in turns:
+        # print(turns[i])
+        d_i = turns[i]
+        if d_i == "L": #heres idea is that north east south west (0 1 2 3) 
+        #here will be north west south east north
+            now = (now + 3) % 4 #because left so here is saying we want number be less than one  
+        else: #and here is like north east south west
+            now = (now + 1) % 4  
+    
+    
+    if directions[now] == "N":
+        y -= 1
+    elif directions[now] == "E":
+        x += 1
+    elif directions[now] == "S":
+        y += 1
+    elif directions[now] == "W":
+        x -= 1
+          
+                
+    
+    if x < 0 or x >= int(w) or y < 0 or y >= int(h) or grid[y][x] == "#":
+        print("Stop")
+        break
+    else:
+        print(y, x)
+       
+
+#ANS FROM PAIZA
+h, w, sy, sx, n = input().split()
+s = [list(input()) for _ in range(int(h))]
+time_lr = [input().split() for _ in range(int(n))]
+sy = int(sy)
+sx = int(sx)
+directions = ["N", "E", "S", "W"]
+now_direction = 0
+time_index = 0
+
+
+for t_now in range(100):
+    if str(t_now) == time_lr[time_index][0]:
+        d = time_lr[time_index][1]
+        time_index += 1
+        if d == "L":
+            now_direction = (3 + now_direction) % 4
+        else:
+            now_direction = (1 + now_direction) % 4
+
+    if directions[now_direction] == "N":
+        sy -= 1
+    elif directions[now_direction] == "E":
+        sx += 1
+    elif directions[now_direction] == "S":
+        sy += 1
+    elif directions[now_direction] == "W":
+        sx -= 1
+
+    if sx < 0 or sx >= int(w) or sy < 0 or sy >= int(h) or s[sy][sx] == "#":
+        print("Stop")
+        break
+    else:
+        print(sy, sx)
+
+
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int h = sc.nextInt();
+        int w = sc.nextInt();
+        int y = sc.nextInt();
+        int x = sc.nextInt();
+        int n = sc.nextInt();
+        
+        String[] grid = new String[h];
+        for (int i = 0; i < h; i++) {
+            grid[i] = sc.next();
+        }
+        // System.out.println(grid);
+        
+        HashMap<Integer, String> turns = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            turns.put(sc.nextInt(), sc.next());
+        }
+        
+        String[] directions = {"N", "E", "S", "W"};
+        int now = 0;
+        
+        
+        
+       for (int t = 0; t < 100; t++) {
+            if (turns.containsKey(t)) {
+                String d = turns.get(t);
+                if (d.equals("L")) {
+                    now = (now + 3) % 4;
+                } else {
+                    now = (now + 1) % 4;
+                }
+            }
+            
+            if (directions[now].equals("N")) y--;
+            else if (directions[now].equals("E")) x++;
+            else if (directions[now].equals("S")) y++;
+            else if (directions[now].equals("W")) x--;
+            
+            if ( x < 0 || x >= w || y < 0 || y >= h || grid[y].charAt(x) == '#') {
+                System.out.println("Stop");
+                break;
+            } else {
+                System.out.println(y + " " + x);
+            }
+        }
+        sc.close();
+    }
+}
+
+
+
+
+
+FINAL 
+マップ上をへびが移動していきます。
+マップの行数 H と列数 W ,障害物を '#' で移動可能な場所を '.' で表した H 行 W 列のマップ S_1 ... S_H , 現在の座標 sy , sx , 方向転換の回数 N が与えられます。
+続けて N 回の方向転換をおこなう時刻 t_1 ... t_N, 転換する向き d_1 ... d_N が与えられます。
+
+へびははじめは北を向いています。
+
+へびは進む先のマスに自分の身体や障害物がない時に移動ができます。
+時刻 0 から 99 までの間、へびは各時刻に次の行動を最大 100 回繰り返します。
+
+・ 方向転換をおこなう時刻の場合、指定の向きに方向転換したのち １ マス身体を伸ばす。そうでない時は、今向いている方向に １ マス身体を伸ばす。
+
+時刻が 99 の時の行動を終えるか、移動できなくなった時、移動を終了します。
+移動終了時にへびの体のあるマスを '*' にしたマップを出力してください。
+
+移動が可能であるということは、
+「移動先のマスに自分の身体や障害物がない かつ 移動先がマップの範囲外でない」
+ということを意味します。
+
+なお、マスの座標系は左上端のマスの座標を ( y , x ) = ( 0 , 0 ) とし、
+下方向が y 座標の正の向き、右方向が x 座標の正の向きとします。
+
+移動の一例をあげます。例えば次のような入力が与えられた時は図のような移動になります。
+図は、時刻 T の行動前の状態を表しています。
+
+
+
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        int h = sc.nextInt();
+        int w = sc.nextInt();
+        int y = sc.nextInt();
+        int x = sc.nextInt();
+        int n = sc.nextInt();
+        
+        char[][] grid = new char[h][w];
+        for (int i = 0; i < h; i++) {
+            grid[i] = sc.next().toCharArray();
+        }
+        // System.out.println(grid);
+        
+        HashMap<Integer, String> turns = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            turns.put(sc.nextInt(), sc.next());
+        }
+        
+        String[] directions = {"N", "E", "S", "W"};
+        int now = 0;
+        
+        grid[y][x] = '*';
+       for (int t = 0; t < 100; t++) {
+            if (turns.containsKey(t)) {
+                String d = turns.get(t);
+                if (d.equals("L")) {
+                    now = (now + 3) % 4;
+                } else {
+                    now = (now + 1) % 4;
+                }
+            }
+            
+            if (directions[now].equals("N")) {
+                y--;
+            } else if (directions[now].equals("E")){
+                x++;
+            } else if (directions[now].equals("S")) {
+                y++;
+            } else if (directions[now].equals("W")) {
+                x--;
+            }
+            if ( x < 0 || x >= w || y < 0 || y >= h || grid[y][x] == '#'|| grid[y][x]=='*') {
+                break;
+            } 
+            grid[y][x] ='*';
+        }
+        
+        for (int z = 0; z < h ; z++) {
+            System.out.println(new String(grid[z]));
+        }
+        sc.close();
+    }
+}
+
+
+#python
+h, w, y, x, n = map(int, input().split())
+grid = [list(input().strip()) for _ in range(h)]
+# print(grid)
+
+#this is maps
+turns = {}
+for _ in range(int(n)):
+    t_i, d_i = input().split()
+    turns[int(t_i)] = d_i
+    
+# print(turns)
+directions = ["N","E","S","W"]
+now = 0
+
+grid[y][x] = "*"
+
+
+for i in range(100):
+    if i in turns:
+        # print(turns[i])
+        d_i = turns[i]
+        if d_i == "L": #heres idea is that north east south west (0 1 2 3) 
+        #here will be north west south east north
+            now = (now + 3) % 4 #because left so here is saying we want number be less than one  
+        else: #and here is like north east south west
+            now = (now + 1) % 4  
+    
+    
+    if directions[now] == "N":
+        y -= 1
+    elif directions[now] == "E":
+        x += 1
+    elif directions[now] == "S":
+        y += 1
+    elif directions[now] == "W":
+        x -= 1
+          
+                
+    
+    if x < 0 or x >= int(w) or y < 0 or y >= int(h) or grid[y][x] == "#" or grid[y][x] =="*":
+        break
+    grid[y][x] = "*"
+        
+        
+for row in grid:
+    print("".join(row))
+    
+
+#ans from paiza
+h, w, sy, sx, n = map(int, input().split())
+s = [list(input()) for _ in range(int(h))]
+time_lr = [input().split() for _ in range(int(n))]
+directions = ["N", "E", "S", "W"]
+now_direction = 0
+time_index = 0
+s[sy][sx] = "*"
+
+for t_now in range(100):
+    if time_index < n and str(t_now) == time_lr[time_index][0]:
+        d = time_lr[time_index][1]
+        time_index += 1
+        if d == "L":
+            now_direction = (3 + now_direction) % 4
+        else:
+            now_direction = (1 + now_direction) % 4
+
+    if directions[now_direction] == "N":
+        sy -= 1
+    elif directions[now_direction] == "E":
+        sx += 1
+    elif directions[now_direction] == "S":
+        sy += 1
+    elif directions[now_direction] == "W":
+        sx -= 1
+
+    if sx < 0 or sx >= int(w) or sy < 0 or sy >= int(h) or s[sy][sx] != ".":
+        break
+    else:
+        s[sy][sx] = "*"
+
+for y in range(int(h)):
+    for x in range(int(w)):
+        print(s[y][x], end="")
+    print()
