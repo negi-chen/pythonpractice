@@ -686,6 +686,70 @@ if __name__ == "__main__":
 
 
 
+#java
+import java.util.*;
+
+public class Main {
+    static int h, w;
+    static char[][] grid;
+    static int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
+    static int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        h = sc.nextInt();
+        w = sc.nextInt();
+        int n = sc.nextInt();
+
+        grid = new char[h][w];
+        for (int i = 0; i < h; i++) {
+            grid[i] = sc.next().toCharArray();
+        }
+
+        for (int t = 0; t < n; t++) {
+            int ya = sc.nextInt();
+            int xa = sc.nextInt();
+            int yb = sc.nextInt();
+            int xb = sc.nextInt();
+
+            processTurn(ya, xa, 'A');
+            processTurn(yb, xb, 'B');
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < h; i++) {
+            sb.append(new String(grid[i]));
+            sb.append("\n");
+        }
+        System.out.print(sb);
+    }
+
+    static void processTurn(int y, int x, char playerChar) {
+        grid[y][x] = playerChar;
+
+        for (int i = 0; i < 8; i++) {
+            List<int[]> path = new ArrayList<>();
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+            while (ny >= 0 && ny < h && nx >= 0 && nx < w) {
+                char cell = grid[ny][nx];
+                if (cell == '#') {
+                    break;
+                }
+                if (cell == playerChar) {
+                    for (int[] p : path) {
+                        grid[p[0]][p[1]] = playerChar;
+                    }
+                    break;
+                }
+                path.add(new int[]{ny, nx});
+                ny += dy[i];
+                nx += dx[i];
+            }
+        }
+    }
+}
+
 
 
 
@@ -745,3 +809,64 @@ def solve():
 
 if __name__ == "__main__":
     solve()
+
+
+
+#java
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int h = sc.nextInt();
+        int w = sc.nextInt();
+        int nPlayers = sc.nextInt();
+        int nTurns = sc.nextInt();
+
+        char[][] grid = new char[h][w];
+        for (int i = 0; i < h; i++) {
+            String row = sc.next();
+            grid[i] = row.toCharArray();
+        }
+
+        int[] dy = {-1, -1, -1, 0, 0, 1, 1, 1};
+        int[] dx = {-1, 0, 1, -1, 1, -1, 0, 1};
+
+        for (int t = 0; t < nTurns; t++) {
+            char pId = sc.next().charAt(0);
+            int y = sc.nextInt();
+            int x = sc.nextInt();
+
+            grid[y][x] = pId;
+
+            for (int i = 0; i < 8; i++) {
+                List<int[]> path = new ArrayList<>();
+                int ny = y + dy[i];
+                int nx = x + dx[i];
+                while (ny >= 0 && ny < h && nx >= 0 && nx < w) {
+                    char cell = grid[ny][nx];
+                    if (cell == '#') {
+                        break;
+                    }
+                    if (cell == pId) {
+                        for (int[] p : path) {
+                            grid[p[0]][p[1]] = pId;
+                        }
+                        break;
+                    }
+                    path.add(new int[]{ny, nx});
+                    ny += dy[i];
+                    nx += dx[i];
+                }
+            }
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < h; i++) {
+            sb.append(new String(grid[i]));
+            sb.append("\n");
+        }
+        System.out.print(sb);
+    }
+}
